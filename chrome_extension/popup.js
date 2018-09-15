@@ -46,6 +46,7 @@ unit_to_kg = {
 
 individual_to_kg = {
 	"egg": 0.05,
+	"eggs": 0.05,
 	"lemon": 0.1
 }
 
