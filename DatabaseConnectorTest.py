@@ -2,8 +2,8 @@ import unittest
 from DatabaseConnector import DatabaseConnector
 import mysql.connector
 
-class MyTestCase(unittest.TestCase):
-    def test_something(self):
+class DatabaseConnectorTest(unittest.TestCase):
+    def testConnectivity(self):
         foodType = 'my special flour'
         cost = 2.5
 
