@@ -1,5 +1,3 @@
-//DatabaseConnector = require('../DatabaseConnector.js')
-
 noInfoFoodName = "no info"
 
 food_data = {
