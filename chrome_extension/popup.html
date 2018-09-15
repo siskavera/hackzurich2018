@@ -7,9 +7,9 @@
   <style type="text/css">
     body {
       background-image: url("logos/footprint.png");
-      background-size: contain;
+      background-size: 40px;
       background-repeat: no-repeat;
-      background-position: 95% 50%;
+      background-position: 95% 20%;
     }
     th, td {
       padding-right: 16px;
@@ -20,14 +20,9 @@
 
 <body style = "min-width: 250px">
 	<h3 id='recipe_name'>RecipeName</h1>
-    <table>
-      <tr>
-        <td>
-          <table id='cost_table'>
-            <tr><th>Ingredient</th><th>EcoCost</th></tr>
-          </table>
-        </td>
-        
-      </tr>
+    <table id='cost_table'>
+      <tr><th>Ingredient</th><th>EcoCost</th></tr>
+    </table>
+    <div id='replacement_suggestion'></div>
 </body>
 </html>
