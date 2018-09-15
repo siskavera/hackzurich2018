@@ -6,5 +6,5 @@
 
 ingredients = document.getElementsByClassName('ingredients-list__item')
 for (i = 0; i < ingredients.length; i++) { 
-    chrome.runtime.sendMessage(ingredients[i].innerText);
+    chrome.runtime.sendMessage(ingredients[i].getAttribute("content"));
 }
