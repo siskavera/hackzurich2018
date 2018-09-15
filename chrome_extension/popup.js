@@ -3,14 +3,38 @@
 noInfoFoodName = "no info"
 
 food_data = {
-  "apple": 1.0,
-  "beef": 10.5,
-  "flour": 0.5,
-  "butter": 9.4,
-  "egg": 5.5,
-  "sugar": 3.0,
-  "oil": 12.1,
-  "parsnip": 0.5
+  "apple": {
+  	"impact": 1.0,
+  	"replacement": ""
+  },
+  "beef": {
+  	"impact": 10.5,
+  	"replacement": ""
+  },
+  "flour": {
+  	"impact": 0.5,
+  	"replacement": ""
+  },
+  "butter": {
+  	"impact": 9.4,
+  	"replacement": ""
+  },
+  "egg": {
+  	"impact": 5.5,
+  	"replacement": ""
+  },
+  "sugar": {
+  	"impact": 3.0,
+  	"replacement": ""
+  },
+  "oil": {
+  	"impact": 12.1,
+  	"replacement": ""
+  },
+  "parsnip": {
+  	"impact": 0.5,
+  	"replacement": ""
+  }
 };
 
 unit_to_kg = {
@@ -32,7 +56,7 @@ maxImpactFood = ''
 window.addEventListener('load', function (evt) {
 	chrome.extension.getBackgroundPage().chrome.tabs.executeScript(null, {
 		file: 'payload.js'
-	});;
+	});
 });
 
 // Listen to messages from the payload.js script and write to popup.html
@@ -119,7 +143,7 @@ function foodUnitPairIsValid(foodName, unit) {
 }
 
 function getImpact(foodName, amount, unit) {
-	impactPerKg = food_data[foodName]
+	impactPerKg = food_data[foodName].impact
 
 	// We made sure it's valid
 	if (unit in unit_to_kg) {

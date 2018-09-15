@@ -1,9 +1,3 @@
-// send the page title as a chrome message
-//chrome.runtime.sendMessage(document.title);
-
-//recipe_name = document.getElementsByClassName('recipe-header__title')[0].innerText
-//chrome.runtime.sendMessage(recipe_name);
-
 recipe_name = document.getElementsByClassName('recipe-header__title')[0].innerHTML
 chrome.runtime.sendMessage(['title',recipe_name])
 
