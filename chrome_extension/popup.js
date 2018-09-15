@@ -1,5 +1,3 @@
-//DatabaseConnector = require('../DatabaseConnector.js')
-
 noInfoFoodName = "no info"
 
 food_data = {
@@ -9,7 +7,7 @@ food_data = {
   },
   "beef": {
   	"impact": 10.5,
-  	"replacement": ""
+  	"replacement": "lentils"
   },
   "flour": {
   	"impact": 0.5,
@@ -17,11 +15,11 @@ food_data = {
   },
   "butter": {
   	"impact": 9.4,
-  	"replacement": ""
+  	"replacement": "oil"
   },
   "egg": {
   	"impact": 5.5,
-  	"replacement": ""
+  	"replacement": "flax egg"
   },
   "sugar": {
   	"impact": 3.0,
@@ -70,14 +68,30 @@ chrome.runtime.onMessage.addListener(function (message) {
 		setTitle(message)
 	} else if (type == 'end') {
 		colorWorstIngredient()
+		suggestReplacement()
 	}
 });
 
-function colorWorstIngredient(message) {
+function colorWorstIngredient() {
 	worseIngredientRow = document.getElementById(maxImpactFood)
 	worseIngredientRow.style.color = "#7F0000"
 	worseIngredientRow.style.fontWeight = "bold"
 	worseIngredientRow.style.outline = "thin solid"
+}
+
+function suggestReplacement() {
+	replacementFood = food_data[maxImpactFood].replacement
+	replacementText = '<br>'
+	replacementText += 'Instead of '
+	replacementText += maxImpactFood
+	replacementText += ', you could try using '
+	replacementText += replacementFood
+	replacementText += '!'
+
+	if (replacementFood != '') {
+		replacementDiv = document.getElementById('replacement_suggestion')
+		replacementDiv.innerHTML = replacementText
+	}
 }
 
 function setTitle(message) {
