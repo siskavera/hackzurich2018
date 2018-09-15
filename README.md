@@ -9,4 +9,6 @@
   --rm mysql sh -c 'exec mysql -h"$MYSQL_PORT_3306_TCP_ADDR" 
   -P"$MYSQL_PORT_3306_TCP_PORT" -uroot 
   -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD"'`
-* create and populate the database: execute CreateDatabase.py
+* on the host system: `pip3 install mysql-connector`
+* on the host system: `npm install mysql`
+* create and populate the database: execute CreateDatabase.py on the host system
