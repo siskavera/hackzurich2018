@@ -3,7 +3,7 @@ var mysql = require('mysql');
 class DatabaseConnector {
   static get(key, callback) {
     var connection = mysql.createConnection({
-      host: "172.17.0.3",
+      host: "172.17.0.2",
       user: "root",
       password: "123",
       database: "food",
@@ -22,3 +22,5 @@ class DatabaseConnector {
     connection.end();
   }
 }
+
+module.exports = DatabaseConnector

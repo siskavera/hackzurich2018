@@ -1,5 +1,5 @@
-// Dummy data :)
-// object literal with properties
+//DatabaseConnector = require('../DatabaseConnector.js')
+
 noInfoFoodName = "no info"
 
 food_data = {
@@ -70,7 +70,7 @@ function addIngredient(message) {
 	firstAmountUnit = amountReturn[1]
 	foodName = getFirstFood(message)
 
-	if (!(foodUnitPairIsValid(foodName, firstAmountUnit))) {
+	if (!(foodUnitPairIsValid(foodName, firstAmountUnit))) { // Is unit valid or if not, is food measured in individuals?
 		foodName = noInfoFoodName
 	}
 	
@@ -84,7 +84,27 @@ function addIngredient(message) {
 		costRow = createCostRow(foodName, firstAmount, firstAmountUnit, impactValue)
 		costTableBody.appendChild(costRow)
 		costTable.appendChild(costTableBody)
+		DatabaseConnector.get("Peas", function (kg_co2_per_kg) {
+            console.log("result: " + kg_co2_per_kg);
+        });
 	}
+}
+
+function getFirstFood(message) {
+	words = message.split(/[\s,\(\\/)]+/)
+
+	foodName = noInfoFoodName
+	for (i = 0; i < words.length; i += 1) {
+		if ((words[i] in food_data)) {
+			foodName = words[i]
+			break
+		} else if (words[i].slice(0, -1) in food_data) { // Plural
+			foodName = words[i].slice(0, -1)
+			break
+		}
+	}
+
+	return foodName
 }
 
 function foodUnitPairIsValid(foodName, unit) {
@@ -127,23 +147,6 @@ function getFirstAmount(message) {
 	}
 
 	return [firstAmount, firstAmountUnit]
-}
-
-function getFirstFood(message) {
-	words = message.split(/[\s,\(\\/)]+/)
-
-	foodName = noInfoFoodName
-	for (i = 0; i < words.length; i += 1) {
-		if ((words[i] in food_data)) {
-			foodName = words[i]
-			break
-		} else if (words[i].slice(0, -1) in food_data) { // Plural
-			foodName = words[i].slice(0, -1)
-			break
-		}
-	}
-
-	return foodName
 }
 
 function createCostRow(foodName, firstAmount, firstAmountUnit, impactValue) {
