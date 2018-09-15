@@ -89,11 +89,11 @@ function setTotalImpact() {
 function colorLogo() {
 	logo = document.getElementById('logo')
     if (sumImpact <= 10) {
-        logo.style.background-image.url = "logos/footprint-green.png"
+        logo.style.body.background-image.url = 'url("logos/footprint-green.png")'
     } else if (sumImpact <= 20) {
-        logo.style.background-image.url = "logos/footprint-yellow.png"
+        logo.style.body.background-image.url = 'url("logos/footprint-yellow.png")'
     } else {
-        logo.style.background-image.url = "logos/footprint-red.png"
+        logo.style.body.background-image.url = 'url("logos/footprint-red.png")'
     }
 }
 
