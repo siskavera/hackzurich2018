@@ -82,6 +82,7 @@ function setTotalImpact() {
     costTable = document.getElementById('cost_table')
     costTableBody = document.createElement('tbody')
     costRow = createCostRow('total', sumImpact.toFixed(3))
+    costRow.style.fontWeight = "bold"
     costTableBody.appendChild(costRow)
     costTable.appendChild(costTableBody)
 }
