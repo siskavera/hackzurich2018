@@ -55,12 +55,10 @@ Pomelo,0.51
 Grapefruit,0.51
 Tangerines,0.51
 Mandarins,0.51
-Tomatoes,0.51
 Wheat,0.52
 Spinach,0.54
 Garlic,0.57
 Strawberries,0.58
-Broccoli,0.6
 Olives,0.63
 Peppers,0.66
 Capsicums,0.66
@@ -82,7 +80,6 @@ Hazelnuts,0.97
 Ground nuts,0.99
 Lentils,1.03
 Pilchard,1.1
-Peppers,1.1
 Quinoa,1.15
 Herring,1.16
 Milk,1.29
@@ -92,21 +89,17 @@ Aubergines,1.35
 Eggplants,1.35
 Sunflower seed,1.41
 Cashew nut,1.44
-Melons,1.43
 Walnuts,1.51
 Pistachios,1.53
 Almonds,1.54
 Pollock,1.6
-Strawberries,1.64
 Carp,1.76
-Zucchini,1.77
 Mackerel,1.8
 Rape seed,2.09
 Mustard seed,2.09
 Cucumbers,2.1
 Gherkins,2.1
 Tuna,2.15
-Tomatoes,2.2
 Rice,2.55
 Whiting,2.66
 Duck,3.09
