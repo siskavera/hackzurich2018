@@ -47,6 +47,7 @@ individual_to_kg = {
 	"lemon": 0.1
 }
 
+sumImpact = 0.0
 maxImpact = 0.0
 maxImpactFood = ''
 
@@ -67,10 +68,19 @@ chrome.runtime.onMessage.addListener(function (message) {
 	} else if (type == 'title') {
 		setTitle(message)
 	} else if (type == 'end') {
+	    setTotalImpact()
 		colorWorstIngredient()
 		suggestReplacement()
 	}
 });
+
+function setTotalImpact() {
+    costTable = document.getElementById('cost_table')
+    costTableBody = document.createElement('tbody')
+    costRow = createCostRow('total', sumImpact)
+    costTableBody.appendChild(costRow)
+    costTable.appendChild(costTableBody)
+}
 
 function colorWorstIngredient() {
 	worseIngredientRow = document.getElementById(maxImpactFood)
@@ -114,6 +124,7 @@ function addIngredient(message) {
 	
 	if (foodName != noInfoFoodName) {
 		impactValue = getImpact(foodName, firstAmount, firstAmountUnit)
+		sumImpact += impactValue
 		if (impactValue > maxImpact) { // Problem if ingredient appears more than once!
 			maxImpact = impactValue
 			maxImpactFood = foodName
@@ -122,9 +133,6 @@ function addIngredient(message) {
 		costRow = createCostRow(foodName, firstAmount, firstAmountUnit, impactValue)
 		costTableBody.appendChild(costRow)
 		costTable.appendChild(costTableBody)
-		DatabaseConnector.get("Peas", function (kg_co2_per_kg) {
-            console.log("result: " + kg_co2_per_kg);
-        });
 	}
 }
 
@@ -187,21 +195,26 @@ function getFirstAmount(message) {
 	return [firstAmount, firstAmountUnit]
 }
 
-function createCostRow(foodName, firstAmount, firstAmountUnit, impactValue) {
+function createCostRow(ingredientText, impactText) {
 	costRow = document.createElement('tr')
 
 	ingredientData = document.createElement('td')
-	ingredientText = firstAmount + firstAmountUnit + " " + foodName
 	ingredient = document.createTextNode(ingredientText)
 	ingredientData.appendChild(ingredient)
 	costRow.appendChild(ingredientData)
-	
+
 	impactData = document.createElement('td')
-	impactText = impactValue.toFixed(3)
 	impact = document.createTextNode(impactText)
 	impactData.appendChild(impact)
 	costRow.appendChild(impactData)
 	costRow.id = foodName
 
-	return costRow
+    return costRow
+}
+
+function createCostRow(foodName, firstAmount, firstAmountUnit, impactValue) {
+	ingredientText = firstAmount + firstAmountUnit + " " + foodName
+	impactText = impactValue.toFixed(3)
+
+	return createCostRow(ingredientText, impactText)
 }
