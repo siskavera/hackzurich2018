@@ -1,3 +1,33 @@
+// Dummy data :)
+// object literal with properties
+noInfoFoodName = "no info"
+
+food_data = {
+  "apple": 1.0,
+  "beef": 10.5,
+  "flour": 0.5,
+  "butter": 9.4,
+  "egg": 5.5,
+  "sugar": 3.0,
+  "oil": 12.1,
+  "parsnip": 0.5
+};
+
+unit_to_kg = {
+	"kg": 1.0,
+	"g": 0.01,
+	"l": 1.0,
+	"ml": 0.001
+};
+
+individual_to_kg = {
+	"egg": 0.05,
+	"lemon": 0.1
+}
+
+maxImpact = 0.0
+maxImpactFood = ''
+
 // Inject the payload.js script into the current tab after the popup has loaded
 window.addEventListener('load', function (evt) {
 	chrome.extension.getBackgroundPage().chrome.tabs.executeScript(null, {
@@ -7,6 +37,130 @@ window.addEventListener('load', function (evt) {
 
 // Listen to messages from the payload.js script and write to popup.html
 chrome.runtime.onMessage.addListener(function (message) {
-	document.getElementById('pagetitle').innerHTML += "<br>";
-	document.getElementById('pagetitle').innerHTML += message
+	type = message[0]
+	message = message[1]
+
+	if (type == 'ingredient') {
+		addIngredient(message)
+	} else if (type == 'title') {
+		setTitle(message)
+	} else if (type == 'end') {
+		colorWorstIngredient()
+	}
 });
+
+function colorWorstIngredient(message) {
+	worseIngredientRow = document.getElementById(maxImpactFood)
+	worseIngredientRow.style.color = "#7F0000"
+	worseIngredientRow.style.fontWeight = "bold"
+	worseIngredientRow.style.outline = "thin solid"
+}
+
+function setTitle(message) {
+	recipeTitle = document.getElementById('recipe_name')
+	recipeTitle.innerHTML = message
+}
+
+function addIngredient(message) {
+	costTable = document.getElementById('cost_table')
+	costTableBody = document.createElement('tbody')
+
+	amountReturn = getFirstAmount(message)
+	firstAmount = amountReturn[0]
+	firstAmountUnit = amountReturn[1]
+	foodName = getFirstFood(message)
+
+	if (!(foodUnitPairIsValid(foodName, firstAmountUnit))) {
+		foodName = noInfoFoodName
+	}
+	
+	if (foodName != noInfoFoodName) {
+		impactValue = getImpact(foodName, firstAmount, firstAmountUnit)
+		if (impactValue > maxImpact) { // Problem if ingredient appears more than once!
+			maxImpact = impactValue
+			maxImpactFood = foodName
+		}
+
+		costRow = createCostRow(foodName, firstAmount, firstAmountUnit, impactValue)
+		costTableBody.appendChild(costRow)
+		costTable.appendChild(costTableBody)
+	}
+}
+
+function foodUnitPairIsValid(foodName, unit) {
+	// foodName is already valid
+	if (unit in unit_to_kg) {
+		return true
+	}
+	if (foodName in individual_to_kg) {
+		return true
+	}
+	return false
+}
+
+function getImpact(foodName, amount, unit) {
+	impactPerKg = food_data[foodName]
+
+	// We made sure it's valid
+	if (unit in unit_to_kg) {
+		unitInKg = amount * unit_to_kg[unit]
+	} else {
+		unitInKg = amount * individual_to_kg[foodName]
+	}
+
+	totalImpact = impactPerKg * unitInKg
+	return totalImpact
+}
+
+function getFirstAmount(message) {
+	has_integer_regex = /\d/
+	integer_regex = /\d+/
+	unit_regex = /\d+([a-zA-Z½]*)[\s,\(\)\/]+/
+
+
+	if (has_integer_regex.test(message)) {
+		firstAmount = message.match(integer_regex)[0]
+		firstAmountUnit = message.match(unit_regex)[1] // Matching group
+	} else {
+		firstAmount = ""
+		firstAmountUnit = ""
+	}
+
+	return [firstAmount, firstAmountUnit]
+}
+
+function getFirstFood(message) {
+	words = message.split(/[\s,\(\\/)]+/)
+
+	foodName = noInfoFoodName
+	for (i = 0; i < words.length; i += 1) {
+		if ((words[i] in food_data)) {
+			foodName = words[i]
+			break
+		} else if (words[i].slice(0, -1) in food_data) { // Plural
+			foodName = words[i].slice(0, -1)
+			break
+		}
+	}
+
+	return foodName
+}
+
+function createCostRow(foodName, firstAmount, firstAmountUnit, impactValue) {
+	costRow = document.createElement('tr')
+
+	ingredientData = document.createElement('td')
+	ingredientText = firstAmount + firstAmountUnit + " " + foodName
+	ingredient = document.createTextNode(ingredientText)
+	ingredientData.appendChild(ingredient)
+	costRow.appendChild(ingredientData)
+	
+	impactData = document.createElement('td')
+	impactText = impactValue.toFixed(3)
+	impact = document.createTextNode(impactText)
+	impactData.appendChild(impact)
+	costRow.appendChild(impactData)
+	costRow.id = foodName
+
+	return costRow
+}

@@ -2,12 +2,32 @@
 <html>
 
 <head>
-	<title>Hello World Extension</title>
+	<title>Kukiko</title>
 	<script src="popup.js"></script>
+  <style type="text/css">
+    body {
+      background-image: url("logos/footprint.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: 95% 50%;
+    }
+    th, td {
+      padding-right: 16px;
+      text-align: left;
+    }
+  </style>
 </head>
 
-<body>
-	<h3>Make me food, hooman!</h1>
-    <p id='pagetitle'></p>
+<body style = "min-width: 250px">
+	<h3 id='recipe_name'>RecipeName</h1>
+    <table>
+      <tr>
+        <td>
+          <table id='cost_table'>
+            <tr><th>Ingredient</th><th>EcoCost</th></tr>
+          </table>
+        </td>
+        
+      </tr>
 </body>
 </html>
