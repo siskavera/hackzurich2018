@@ -132,7 +132,7 @@ function addIngredient(message) {
 			maxImpactFood = foodName
 		}
 
-		costRow = createCostRow(foodName, firstAmount, firstAmountUnit, impactValue)
+		costRow = createCostRowFields(foodName, firstAmount, firstAmountUnit, impactValue)
 		costTableBody.appendChild(costRow)
 		costTable.appendChild(costTableBody)
 	}
@@ -214,7 +214,7 @@ function createCostRow(ingredientText, impactText) {
     return costRow
 }
 
-function createCostRow(foodName, firstAmount, firstAmountUnit, impactValue) {
+function createCostRowFields(foodName, firstAmount, firstAmountUnit, impactValue) {
 	ingredientText = firstAmount + firstAmountUnit + " " + foodName
 	impactText = impactValue.toFixed(3)
 
