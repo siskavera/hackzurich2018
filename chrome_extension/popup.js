@@ -88,12 +88,13 @@ function setTotalImpact() {
 
 function colorLogo() {
 	logo = document.getElementById('logo')
-    if (sumImpact <= 10) {
-        logo.style.body.background-image = 'url("logos/footprint-green.png")'
-    } else if (sumImpact <= 20) {
-        logo.style.body.background-image = 'url("logos/footprint-yellow.png")'
+	body = document.getElementsByTagName('body')[0];
+    if (sumImpact <= 15) {
+        body.style.backgroundImage = 'url(logos/footprint-green.png)';
+    } else if (sumImpact <= 30) {
+        body.style.backgroundImage = 'url(logos/footprint-yellow.png)';
     } else {
-        logo.style.body.background-image = 'url("logos/footprint-red.png")'
+        body.style.backgroundImage = 'url(logos/footprint-red.png)';
     }
 }
 
