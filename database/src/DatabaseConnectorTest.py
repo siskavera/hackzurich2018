@@ -1,5 +1,5 @@
 import unittest
-from DatabaseConnector import DatabaseConnector
+from database.src.DatabaseConnector import DatabaseConnector
 import mysql.connector
 
 class DatabaseConnectorTest(unittest.TestCase):

@@ -11,4 +11,4 @@
   -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD"'`
 * on the host system: `pip3 install mysql-connector`
 * on the host system: `npm install mysql`
-* create and populate the database: execute CreateDatabase.py on the host system
+* create and populate the database: execute database/src/CreateDatabase.py on the host system
