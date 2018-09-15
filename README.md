@@ -14,6 +14,7 @@
 * on the host system: `npm install mysql`
 
 ## Installing the Chrome extension
+Currently only locally: the extension is not registered in the Chrome Web Store.
 * Open extensions at [chrome://extensions/]
 * Turn on developer mode (top right corner)
 * Click 'load unpacked' (top left corner)
