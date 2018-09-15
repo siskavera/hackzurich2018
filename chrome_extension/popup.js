@@ -71,6 +71,7 @@ chrome.runtime.onMessage.addListener(function (message) {
 		setTitle(message)
 	} else if (type == 'end') {
 	    setTotalImpact()
+	    colorLogo()
 		colorWorstIngredient()
 		suggestReplacement()
 	}
@@ -79,9 +80,20 @@ chrome.runtime.onMessage.addListener(function (message) {
 function setTotalImpact() {
     costTable = document.getElementById('cost_table')
     costTableBody = document.createElement('tbody')
-    costRow = createCostRow('total', sumImpact)
+    costRow = createCostRow('total', sumImpact.toFixed(3))
     costTableBody.appendChild(costRow)
     costTable.appendChild(costTableBody)
+}
+
+function colorLogo() {
+	logo = document.getElementById('logo')
+    if (sumImpact <= 10) {
+        logo.style.background-image.url = "logos/footprint-green.png"
+    } else if (sumImpact <= 20) {
+        logo.style.background-image.url = "logos/footprint-yellow.png"
+    } else {
+        logo.style.background-image.url = "logos/footprint-red.png"
+    }
 }
 
 function colorWorstIngredient() {
