@@ -4,7 +4,7 @@ import mysql.connector
 
 class MyTestCase(unittest.TestCase):
     def test_something(self):
-        foodType = 'flour'
+        foodType = 'my special flour'
         cost = 2.5
 
         cnx = mysql.connector.connect(host='172.17.0.2', user='root', password='123')
