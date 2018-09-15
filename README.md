@@ -9,9 +9,9 @@ Currently only locally: the extension is not registered in the Chrome Web Store.
 * Turn on extension
 
 It currently only woks for [https://www.bbcgoodfood.com] recipes. Examples are:
-* [https://www.bbcgoodfood.com/recipes/2538/beef-wellington]
-* [https://www.bbcgoodfood.com/recipes/2270/homemade-lemonade]
-* [https://www.bbcgoodfood.com/recipes/2528636/coffee-and-walnut-cake]
+* [https://www.bbcgoodfood.com/recipes/333614/red-lentil-chickpea-and-chilli-soup] (eco friendly)
+* [https://www.bbcgoodfood.com/recipes/2528636/coffee-and-walnut-cake] (eco OK)
+* [https://www.bbcgoodfood.com/recipes/2538/beef-wellington] (eco unfriendly)
 
 ## Setting up the Database
 For future development, to handle a larger amount and more complex data (e.g. user accounts, accomplishments, different measures) and integrate with the Chrome Extension.
