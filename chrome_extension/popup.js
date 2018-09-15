@@ -146,9 +146,12 @@ function getFirstFood(message) {
 		if ((words[i] in food_data)) {
 			foodName = words[i]
 			break
-		} else if (words[i].slice(0, -1) in food_data) { // Plural
+		} else if (words[i].slice(0, -1) in food_data) { // Plural s
 			foodName = words[i].slice(0, -1)
 			break
+		} else if (words[i] + 's' in food_data) { // Plural s
+		    foodName = words[i]
+		    break
 		}
 	}
 
