@@ -17,7 +17,7 @@
 * Open extensions at [chrome://extensions/]
 * Turn on developer mode (top right corner)
 * Click 'load unpacked' (top left corner)
-* Open 'extension' folder
+* Open 'chrome_extension' folder
 * Turn on extension
 
 It currently only woks for [https://www.bbcgoodfood.com] recipes. Examples are:
