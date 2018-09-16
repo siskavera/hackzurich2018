@@ -81,7 +81,7 @@ chrome.runtime.onMessage.addListener(function (message) {
 function setTotalImpact() {
     costTable = document.getElementById('cost_table')
     costTableBody = document.createElement('tbody')
-    costRow = createCostRow('total', sumImpact.toFixed(3))
+    costRow = createCostRow('total', sumImpact.toFixed(3), 'total')
     costRow.style.fontWeight = "bold"
     costTableBody.appendChild(costRow)
     costTable.appendChild(costTableBody)
@@ -215,7 +215,7 @@ function getFirstAmount(message) {
 	return [firstAmount, firstAmountUnit]
 }
 
-function createCostRow(ingredientText, impactText) {
+function createCostRow(ingredientText, impactText, rowId) {
 	costRow = document.createElement('tr')
 
 	ingredientData = document.createElement('td')
@@ -227,7 +227,7 @@ function createCostRow(ingredientText, impactText) {
 	impact = document.createTextNode(impactText)
 	impactData.appendChild(impact)
 	costRow.appendChild(impactData)
-	costRow.id = foodName
+	costRow.id = rowId
 
     return costRow
 }
@@ -236,5 +236,5 @@ function createCostRowFields(foodName, firstAmount, firstAmountUnit, impactValue
 	ingredientText = firstAmount + firstAmountUnit + " " + foodName
 	impactText = impactValue.toFixed(3)
 
-	return createCostRow(ingredientText, impactText)
+	return createCostRow(ingredientText, impactText, foodName)
 }
