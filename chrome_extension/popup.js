@@ -47,16 +47,7 @@ unit_to_kg = {
 individual_to_kg = {
 	"egg": 0.05,
 	"eggs": 0.05,
-	"lemon": 0.1,
-	"lemons": 0.1,
-	"onion": 0.1,
-	"onions": 0.1,
-	"carrot": 0.1,
-	"carrots": 0.1,
-	"garlic": 0.01,
-	"garlics": 0.01,
-	"celery": 0.1,
-
+	"lemon": 0.1
 }
 
 sumImpact = 0.0
@@ -79,7 +70,6 @@ chrome.runtime.onMessage.addListener(function (message) {
 		addIngredient(message)
 	} else if (type == 'title') {
 		setTitle(message)
-		createCostRowHeader()
 	} else if (type == 'end') {
 	    setTotalImpact()
 	    colorLogo()
@@ -136,15 +126,6 @@ function setTitle(message) {
 	recipeTitle.innerHTML = message
 }
 
-function setTableHeader() {
-	costTable = document.getElementById('cost_table')
-	costTableBody = document.createElement('tbody')
-
-	costRow = createCostRow('Ingredient', 'EcoCost [kg CO2]')
-	costTableBody.appendChild(costRow)
-	costTable.appendChild(costTableBody)
-}
-
 function addIngredient(message) {
 	costTable = document.getElementById('cost_table')
 	costTableBody = document.createElement('tbody')
@@ -197,7 +178,7 @@ function foodUnitPairIsValid(foodName, unit) {
 	if (unit in unit_to_kg) {
 		return true
 	}
-	if ((foodName in individual_to_kg) | ((foodName + 's') in individual_to_kg)) {
+	if (foodName in individual_to_kg) {
 		return true
 	}
 	return false
@@ -246,8 +227,9 @@ function createCostRow(ingredientText, impactText) {
 	impact = document.createTextNode(impactText)
 	impactData.appendChild(impact)
 	costRow.appendChild(impactData)
+	costRow.id = foodName
 
-	return costRow
+    return costRow
 }
 
 function createCostRowFields(foodName, firstAmount, firstAmountUnit, impactValue) {
@@ -255,24 +237,4 @@ function createCostRowFields(foodName, firstAmount, firstAmountUnit, impactValue
 	impactText = impactValue.toFixed(3)
 
 	return createCostRow(ingredientText, impactText)
-}
-
-function createCostRowHeader(col1, col2) {
-	costTable = document.getElementById('cost_table')
-    costTableBody = document.createElement('tbody')
-
-	costRow = document.createElement('tr')
-
-	ingredientData = document.createElement('th')
-	ingredient = document.createTextNode("Ingredient")
-	ingredientData.appendChild(ingredient)
-	costRow.appendChild(ingredientData)
-
-	impactData = document.createElement('th')
-	impact = document.createTextNode("EcoCost [kg CO2]")
-	impactData.appendChild(impact)
-	costRow.appendChild(impactData)
-
-	costTableBody.appendChild(costRow)
-    costTable.appendChild(costTableBody)
 }
